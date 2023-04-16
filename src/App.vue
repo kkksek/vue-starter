@@ -7,11 +7,13 @@
 	</div>
 	
 	<div v-else>
-	<div>Zaloguj się emailem:
-	<input type="email" v-model="email">
-	<button @click="logMeIn()">Wchodzę</button>
+	<LoginForm @login="(username) => logMeIn(username)" button-label="Wejdź"></LoginForm>
+	<LoginForm @login="(username) => logMeIn(username)" button-label="Wleć"></LoginForm>
+	<LoginForm @login="(username) => logMeIn(username)":button-label="Math.random() < 0.5 ? 'Etykieta A' : 'Etykieta B'"></LoginForm>
 	</div>
 	</div>
+	
+	
 	<!--<div v-if="!email.includes('@')">Twój adres email jest niepoprawny</div>
 	<div v-else-if="email.length < 10">Ale masz krótki adres!</div>
 	<div v-else-if="email.length < 15">Twój adres e-mail jest w sam raz.</div>
@@ -25,7 +27,9 @@
 
 <script>
 import "milligram";
+import LoginForm from "./LoginForm";
 export default {
+components: {LoginForm},
 data() {
   return {
     email: 'ksek@agh.edu.pl',
@@ -34,8 +38,9 @@ data() {
   };
 },
 methods:{
-logMeIn(){
+logMeIn(username){
 this.loggedIn=true;
+this.email = username;
 },
 logMeOut(){
 this.loggedIn=false;
